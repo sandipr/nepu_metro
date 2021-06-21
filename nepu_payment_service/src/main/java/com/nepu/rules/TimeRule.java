@@ -32,7 +32,6 @@ public class TimeRule implements Rules {
 				LocalDateTime ticketTime = LocalDateTime.now().withHour(bookingTime.getHour())
 						.withMinute(bookingTime.getMinute()).withSecond(0);
 				ticket.setFare(getOffPeakFareBasedOnZone(ticket));
-				
 				for (RuleDateRange timeRange : peakRange) {
 
 					if (within(ticketTime, timeRange.getPeakStartTime(), timeRange.getPeakEndTime())) {
@@ -49,38 +48,38 @@ public class TimeRule implements Rules {
 	private boolean within(LocalDateTime toCheck, LocalDateTime startInterval, LocalDateTime endInterval) {
 		return toCheck.compareTo(startInterval) >= 0 && toCheck.compareTo(endInterval) <= 0;
 	}
-	
+
 	private double getPeakFareBasedOnZone(Ticket ticket) {
-		
+
 		if((ticket.getStartZone()  == ticket.getEndZOne()) && ticket.getStartZone() == TicketConfig.ZONE.Z1)
 			return RuleConfig.getZ1PeakfareSameZone();
-		
+
 		if((ticket.getStartZone()  == ticket.getEndZOne()) && ticket.getStartZone() == TicketConfig.ZONE.Z2)
 			return RuleConfig.getZ2PeakfareSameZone();
-		
+
 		if((ticket.getStartZone()  != ticket.getEndZOne()) )
 			return RuleConfig.getZ1Z2PeakfareZone();
-		
-		
+
+
 		return 0.0;
 	}
 
-	
+
 	private double getOffPeakFareBasedOnZone(Ticket ticket) {
-		
+
 		if((ticket.getStartZone()  == ticket.getEndZOne()) && ticket.getStartZone() == TicketConfig.ZONE.Z1)
 			return RuleConfig.getZ1OffPeakfareSameZone();
-		
+
 		if((ticket.getStartZone()  == ticket.getEndZOne()) && ticket.getStartZone() == TicketConfig.ZONE.Z2)
 			return RuleConfig.getZ2OffPeakfareSameZone();
-		
+
 		if((ticket.getStartZone()  != ticket.getEndZOne()))
 			return RuleConfig.getZ1Z2OffPeakfareZone();
-		
 
-		
+
+
 		return 0.0;
 	}
-	
+
 
 }

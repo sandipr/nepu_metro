@@ -5,12 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RuleTimeBased {
-	
+
 	DayOfWeek dayOfWeek = null;
-	
+
 	List<RuleDateRange> timeRange =  new ArrayList<RuleDateRange>();
-	
-	
 
 
 	public DayOfWeek getDayOfWeek() {
@@ -21,14 +19,14 @@ public class RuleTimeBased {
 		this.dayOfWeek = dayOfWeek;
 	}
 
-	
+
 	public void addTimeRange(RuleDateRange dateRange) {
 		timeRange.add(dateRange);
 	}
-	
+
 	public List<RuleDateRange> getTimeRange() {
 		return timeRange;
 	}
-	
+
 
 }

@@ -39,6 +39,13 @@ public class TicketManagementServiceImpl implements TicketManagementService{
 		ticketsList.add(ticket);
 		tickets.put(ticket.getUser(), ticketsList);
 	}
+	
+
+	@Override
+	public void clearData() {
+
+		tickets.clear();
+	}
 
 	@Override
 	public List<Ticket> loadAllTickets(String userID) {

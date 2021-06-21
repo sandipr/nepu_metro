@@ -16,11 +16,11 @@ public class RulesEngineImpl implements RulesEngine{
 		TimeRule timeRule = new TimeRule();
 		timeRule.initRule(null);
 		listOfRules.add(timeRule);
-		
+
 		FareCapRule capRule = new FareCapRule();
 		capRule.initRule(null);
 		listOfRules.add(capRule);
-		
+
 		return false;
 	}
 
@@ -29,13 +29,13 @@ public class RulesEngineImpl implements RulesEngine{
 		return false;
 	}
 
-	
+
 	public void process(Ticket ticket) throws Exception {
-		
+
 		for(Rules rule: listOfRules) {
 			rule.applyRule(ticket);
 		}
 	}
-	
+
 
 }

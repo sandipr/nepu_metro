@@ -4,16 +4,20 @@ import com.nepu.engine.RuleEngineFactory;
 import com.nepu.engine.RulesEngine;
 import com.nepu.ticket.model.Ticket;
 
+/**
+ *  Main Payment service class
+ */
+
 public class PaymentServiceImpl implements PaymentService{
-	
+
 	static PaymentService paymentService = new PaymentServiceImpl();
-	
+
 	RulesEngine engine = null;
-	
+
 	private PaymentServiceImpl() {
 		initService();
 	}
-	
+
 	public static PaymentService getInstance() {
 		return paymentService;
 	}
@@ -27,8 +31,7 @@ public class PaymentServiceImpl implements PaymentService{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		//System.out.println(ticket.getFare());
-		//PaymentEngine.process paymen
+		//PaymentEngine.process payment
 		//send notification
 	}
 
@@ -36,8 +39,8 @@ public class PaymentServiceImpl implements PaymentService{
 	public void initService() {
 		engine = RuleEngineFactory.getEngine(null);
 		engine.start();
-		
+
 	}
-	
+
 
 }

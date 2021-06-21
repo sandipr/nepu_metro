@@ -16,4 +16,6 @@ public interface TicketManagementService {
 	
 	public void deleteTicket(Ticket ticket);
 
+	void clearData();
+
 }
