@@ -7,9 +7,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class RuleConfig {
+/*
+ * This class should be populated from MDS Service.
+ * Dummy implementation for simplicity
+ */
+public class RuleMetaData {
 
-	public static List<RuleTimeBased> peakDaysRange = new ArrayList<RuleTimeBased>();
+	public static List<RuleTimeBasedModel> peakDaysRange = new ArrayList<RuleTimeBasedModel>();
 
 	static {
 		setPeakDays();
@@ -20,55 +24,55 @@ public class RuleConfig {
 		if (peakDaysRange.size() > 0)
 			peakDaysRange.clear();
 
-		RuleDateRange rangePeak = new RuleDateRange();
+		RuleDateRangeModel rangePeak = new RuleDateRangeModel();
 		rangePeak.setPeakRange(7, 0, 10, 30);
 
-		RuleDateRange rangePeakSecond = new RuleDateRange();
+		RuleDateRangeModel rangePeakSecond = new RuleDateRangeModel();
 		rangePeakSecond.setPeakRange(17, 0, 20, 0);
 
-		RuleTimeBased timeBaseRuleMon = new RuleTimeBased();
+		RuleTimeBasedModel timeBaseRuleMon = new RuleTimeBasedModel();
 		timeBaseRuleMon.setDayOfWeek(DayOfWeek.MONDAY);
 		timeBaseRuleMon.addTimeRange(rangePeak);
 		timeBaseRuleMon.addTimeRange(rangePeakSecond);
 		peakDaysRange.add(timeBaseRuleMon);
 
-		RuleTimeBased timeBaseRuleTue = new RuleTimeBased();
+		RuleTimeBasedModel timeBaseRuleTue = new RuleTimeBasedModel();
 		timeBaseRuleTue.setDayOfWeek(DayOfWeek.TUESDAY);
 		timeBaseRuleTue.addTimeRange(rangePeak);
 		timeBaseRuleTue.addTimeRange(rangePeakSecond);
 		peakDaysRange.add(timeBaseRuleTue);
 
-		RuleTimeBased timeBaseRuleWed = new RuleTimeBased();
+		RuleTimeBasedModel timeBaseRuleWed = new RuleTimeBasedModel();
 		timeBaseRuleWed.setDayOfWeek(DayOfWeek.WEDNESDAY);
 		timeBaseRuleWed.addTimeRange(rangePeak);
 		timeBaseRuleWed.addTimeRange(rangePeakSecond);
 		peakDaysRange.add(timeBaseRuleWed);
 
-		RuleTimeBased timeBaseRuleThu = new RuleTimeBased();
+		RuleTimeBasedModel timeBaseRuleThu = new RuleTimeBasedModel();
 		timeBaseRuleThu.setDayOfWeek(DayOfWeek.THURSDAY);
 		timeBaseRuleThu.addTimeRange(rangePeak);
 		timeBaseRuleThu.addTimeRange(rangePeakSecond);
 		peakDaysRange.add(timeBaseRuleThu);
 
-		RuleTimeBased timeBaseRuleFri = new RuleTimeBased();
+		RuleTimeBasedModel timeBaseRuleFri = new RuleTimeBasedModel();
 		timeBaseRuleFri.setDayOfWeek(DayOfWeek.FRIDAY);
 		timeBaseRuleFri.addTimeRange(rangePeak);
 		timeBaseRuleFri.addTimeRange(rangePeakSecond);
 		peakDaysRange.add(timeBaseRuleFri);
 
-		RuleDateRange rangePeakWeekend = new RuleDateRange();
+		RuleDateRangeModel rangePeakWeekend = new RuleDateRangeModel();
 		rangePeakWeekend.setPeakRange(9, 0, 11, 0);
 
-		RuleDateRange rangePeakSecondWekend = new RuleDateRange();
+		RuleDateRangeModel rangePeakSecondWekend = new RuleDateRangeModel();
 		rangePeakSecondWekend.setPeakRange(18, 0, 22, 0);
 
-		RuleTimeBased timeBaseRuleSat = new RuleTimeBased();
+		RuleTimeBasedModel timeBaseRuleSat = new RuleTimeBasedModel();
 		timeBaseRuleSat.setDayOfWeek(DayOfWeek.SATURDAY);
 		timeBaseRuleSat.addTimeRange(rangePeakWeekend);
 		timeBaseRuleSat.addTimeRange(rangePeakSecondWekend);
 		peakDaysRange.add(timeBaseRuleSat);
 
-		RuleTimeBased timeBaseRuleSun = new RuleTimeBased();
+		RuleTimeBasedModel timeBaseRuleSun = new RuleTimeBasedModel();
 		timeBaseRuleSun.setDayOfWeek(DayOfWeek.SUNDAY);
 		timeBaseRuleSun.addTimeRange(rangePeakWeekend);
 		timeBaseRuleSun.addTimeRange(rangePeakSecondWekend);
@@ -76,7 +80,7 @@ public class RuleConfig {
 
 	}
 
-	public static List<RuleTimeBased> getTimeBaseRuleConfig() {
+	public static List<RuleTimeBasedModel> getTimeBaseRuleConfig() {
 		return peakDaysRange;
 	}
 

@@ -2,14 +2,19 @@ package com.nepu.rules;
 
 import java.util.List;
 
-import com.nepu.config.RuleConfig;
+import com.nepu.config.RuleMetaData;
 import com.nepu.constants.Config;
 import com.nepu.service.TicketManagementService;
 import com.nepu.service.TicketManagementServiceImpl;
 import com.nepu.ticket.model.Ticket;
 import com.nepu.ticket.model.TicketConfig;
 
-public class FareCapRule implements Rules{
+
+/*
+ * Implement logic for Fare Cap base rule
+ */
+
+public class FareCapBaseRuleProcessor implements Rules{
 
 	@Override
 	public void initRule(Config config) {
@@ -71,14 +76,14 @@ public class FareCapRule implements Rules{
 			totalZ2MaxFare = totalZ2MaxFare + currentTicket.getFare();
 		}
 
-		if(totalMaxFare >=  RuleConfig.getDailyCapforZ1Z2() )
-			currentTicket.setFare( Math.abs(RuleConfig.getDailyCapforZ1Z2()  - (totalMaxFare - currentTicket.getFare())));
+		if(totalMaxFare >=  RuleMetaData.getDailyCapforZ1Z2() )
+			currentTicket.setFare( Math.abs(RuleMetaData.getDailyCapforZ1Z2()  - (totalMaxFare - currentTicket.getFare())));
 
-		else if(totalZ1MaxFare >=  RuleConfig.getDailyCapforZ1() )
-			currentTicket.setFare( Math.abs(RuleConfig.getDailyCapforZ1()  - (totalMaxFare - currentTicket.getFare())));
+		else if(totalZ1MaxFare >=  RuleMetaData.getDailyCapforZ1() )
+			currentTicket.setFare( Math.abs(RuleMetaData.getDailyCapforZ1()  - (totalMaxFare - currentTicket.getFare())));
 
-		else if(totalZ2MaxFare >=  RuleConfig.getDailyCapforZ2() )
-			currentTicket.setFare( Math.abs(RuleConfig.getDailyCapforZ2()  - (totalMaxFare - currentTicket.getFare())));
+		else if(totalZ2MaxFare >=  RuleMetaData.getDailyCapforZ2() )
+			currentTicket.setFare( Math.abs(RuleMetaData.getDailyCapforZ2()  - (totalMaxFare - currentTicket.getFare())));
 
 
 	}

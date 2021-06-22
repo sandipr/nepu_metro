@@ -4,11 +4,11 @@ import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RuleTimeBased {
+public class RuleTimeBasedModel {
 
 	DayOfWeek dayOfWeek = null;
 
-	List<RuleDateRange> timeRange =  new ArrayList<RuleDateRange>();
+	List<RuleDateRangeModel> timeRange =  new ArrayList<RuleDateRangeModel>();
 
 
 	public DayOfWeek getDayOfWeek() {
@@ -20,11 +20,11 @@ public class RuleTimeBased {
 	}
 
 
-	public void addTimeRange(RuleDateRange dateRange) {
+	public void addTimeRange(RuleDateRangeModel dateRange) {
 		timeRange.add(dateRange);
 	}
 
-	public List<RuleDateRange> getTimeRange() {
+	public List<RuleDateRangeModel> getTimeRange() {
 		return timeRange;
 	}
 

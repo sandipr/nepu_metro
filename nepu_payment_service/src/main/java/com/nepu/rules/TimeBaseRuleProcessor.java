@@ -3,15 +3,18 @@ package com.nepu.rules;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import com.nepu.config.RuleConfig;
-import com.nepu.config.RuleDateRange;
-import com.nepu.config.RuleTimeBased;
+import com.nepu.config.RuleMetaData;
+import com.nepu.config.RuleDateRangeModel;
+import com.nepu.config.RuleTimeBasedModel;
 import com.nepu.constants.Config;
 import com.nepu.ticket.model.Ticket;
 import com.nepu.ticket.model.TicketConfig;
 
+/*
+ * Implement logic for Time base rule
+ */
 
-public class TimeRule implements Rules {
+public class TimeBaseRuleProcessor implements Rules {
 
 	public void initRule(Config config) {
 		//RuleConfig.setPeakDays();
@@ -21,18 +24,18 @@ public class TimeRule implements Rules {
 
 		LocalDateTime bookingTime = ticket.getBookingTime();
 
-		List<RuleTimeBased> timeRules = RuleConfig.getTimeBaseRuleConfig();
+		List<RuleTimeBasedModel> timeRules = RuleMetaData.getTimeBaseRuleConfig();
 
-		for (RuleTimeBased timeRule : timeRules) {
+		for (RuleTimeBasedModel timeRule : timeRules) {
 
 			if (timeRule.getDayOfWeek() == bookingTime.getDayOfWeek()) {
 
-				List<RuleDateRange> peakRange = timeRule.getTimeRange();
+				List<RuleDateRangeModel> peakRange = timeRule.getTimeRange();
 
 				LocalDateTime ticketTime = LocalDateTime.now().withHour(bookingTime.getHour())
 						.withMinute(bookingTime.getMinute()).withSecond(0);
 				ticket.setFare(getOffPeakFareBasedOnZone(ticket));
-				for (RuleDateRange timeRange : peakRange) {
+				for (RuleDateRangeModel timeRange : peakRange) {
 
 					if (within(ticketTime, timeRange.getPeakStartTime(), timeRange.getPeakEndTime())) {
 						ticket.setFare(getPeakFareBasedOnZone(ticket));
@@ -52,13 +55,13 @@ public class TimeRule implements Rules {
 	private double getPeakFareBasedOnZone(Ticket ticket) {
 
 		if((ticket.getStartZone()  == ticket.getEndZOne()) && ticket.getStartZone() == TicketConfig.ZONE.Z1)
-			return RuleConfig.getZ1PeakfareSameZone();
+			return RuleMetaData.getZ1PeakfareSameZone();
 
 		if((ticket.getStartZone()  == ticket.getEndZOne()) && ticket.getStartZone() == TicketConfig.ZONE.Z2)
-			return RuleConfig.getZ2PeakfareSameZone();
+			return RuleMetaData.getZ2PeakfareSameZone();
 
 		if((ticket.getStartZone()  != ticket.getEndZOne()) )
-			return RuleConfig.getZ1Z2PeakfareZone();
+			return RuleMetaData.getZ1Z2PeakfareZone();
 
 
 		return 0.0;
@@ -68,13 +71,13 @@ public class TimeRule implements Rules {
 	private double getOffPeakFareBasedOnZone(Ticket ticket) {
 
 		if((ticket.getStartZone()  == ticket.getEndZOne()) && ticket.getStartZone() == TicketConfig.ZONE.Z1)
-			return RuleConfig.getZ1OffPeakfareSameZone();
+			return RuleMetaData.getZ1OffPeakfareSameZone();
 
 		if((ticket.getStartZone()  == ticket.getEndZOne()) && ticket.getStartZone() == TicketConfig.ZONE.Z2)
-			return RuleConfig.getZ2OffPeakfareSameZone();
+			return RuleMetaData.getZ2OffPeakfareSameZone();
 
 		if((ticket.getStartZone()  != ticket.getEndZOne()))
-			return RuleConfig.getZ1Z2OffPeakfareZone();
+			return RuleMetaData.getZ1Z2OffPeakfareZone();
 
 
 

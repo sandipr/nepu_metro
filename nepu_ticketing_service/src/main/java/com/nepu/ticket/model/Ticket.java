@@ -2,9 +2,11 @@ package com.nepu.ticket.model;
 
 import java.time.LocalDateTime;
 
+/*
+ * Represent a ticket 
+ */
+
 public class Ticket {
-	
-	
 	
 	private String user = null;
 	

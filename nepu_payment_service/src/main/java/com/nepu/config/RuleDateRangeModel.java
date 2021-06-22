@@ -2,7 +2,7 @@ package com.nepu.config;
 
 import java.time.LocalDateTime;
 
-public class RuleDateRange {
+public class RuleDateRangeModel {
 	
 	LocalDateTime peakStartTime =  LocalDateTime.now();
 	
