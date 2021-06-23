@@ -119,5 +119,20 @@ public class RuleMetaData {
 	public static double getDailyCapforZ1Z2() {
 		return 120;
 	}
+	
+	
+	
+	
+	public static double getWeeklyCapforZ1() {
+		return 500;
+	}
+
+	public static double getWeeklyCapforZ2() {
+		return 400;
+	}
+
+	public static double getWeeklyCapforZ1Z2() {
+		return 600;
+	}
 
 }

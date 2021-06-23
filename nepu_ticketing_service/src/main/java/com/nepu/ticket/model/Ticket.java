@@ -17,11 +17,11 @@ public class Ticket {
 	
 	private LocalDateTime  bookingTime =  null;
 	
-	public Ticket(String user,TicketConfig.ZONE startZone, TicketConfig.ZONE endZOne){
+	public Ticket(String user,LocalDateTime bookingTime,TicketConfig.ZONE startZone, TicketConfig.ZONE endZOne){
 		this.user = user;
 		this.startZone = startZone;
 		this.endZOne = endZOne;
-		bookingTime = LocalDateTime.now();
+		this.bookingTime = bookingTime;
 	}
 	
 	
