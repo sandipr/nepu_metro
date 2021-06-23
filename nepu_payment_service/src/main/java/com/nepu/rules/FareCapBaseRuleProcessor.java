@@ -30,8 +30,7 @@ public class FareCapBaseRuleProcessor implements Rules{
 		TicketManagementService ticketManService =  TicketManagementServiceImpl.getService();
 		
 		DailyTicketModel dailyModel = ticketManService.getDailyTicketModel(ticket.getUser(), ticket.getBookingTime().getDayOfWeek());
-		
-		
+			
 		WeeklyTicketModel weeklyModel = ticketManService.getWeekyTicketModel(ticket.getUser());
 
 		checkDailyCap(ticket,dailyModel, weeklyModel);
@@ -39,34 +38,7 @@ public class FareCapBaseRuleProcessor implements Rules{
 	}
 
 	private void checkDailyCap(Ticket currentTicket,DailyTicketModel dailyTicketModel, WeeklyTicketModel weeklyModel ) {
-		//double totalDailyFareZ1 = 0.0d;
-		//double totalDailyFareZ2 = 0.0d;
-		//double totalDailyFareZ1Z2 = 0.0d;
-
-		/*if(dailyTicketModel == null)
-			return;*/
-		
-		/*List<Ticket> allDailyTickets =  dailyTicketModel.getDailyTickets();
-
-
-		for(Ticket dailyTicket : allDailyTickets) {
-			if(dailyTicket.getBookingTime().getDayOfYear() == currentTicket.getBookingTime().getDayOfYear()) {
-
-				if(dailyTicket.getStartZone() == TicketConfig.ZONE.Z1 && dailyTicket.getEndZOne() == TicketConfig.ZONE.Z1 )
-					totalDailyFareZ1 += dailyTicket.getFare();
-
-				if(dailyTicket.getStartZone() == TicketConfig.ZONE.Z2 && dailyTicket.getEndZOne() == TicketConfig.ZONE.Z2 )
-					totalDailyFareZ2 += dailyTicket.getFare();
-
-
-				if(dailyTicket.getStartZone() != dailyTicket.getEndZOne()   )
-					totalDailyFareZ1Z2 += dailyTicket.getFare();
-
-			}
-
-		}*/
-		//double currentfare = currentTicket.getFare();
-		
+				
 		//weekly cap reached
 		if( weeklyModel.getWeeklyRollup() > 0 && weeklyModel.getWeeklyRollup() >= weeklyModel.getWeeklyMaxCap()) {
 			currentTicket.setFare( 0);
@@ -107,7 +79,6 @@ public class FareCapBaseRuleProcessor implements Rules{
 		dailyTicketModel.addToDailyRollup(currentTicket.getFare());
 		
 		if(dailyTicketModel.getDailyRollup() >= dailyTicketModel.getDailyMaxCap()) {
-			//currentTicket.setFare(dailyTicketModel.getDailyRollup() - dailyTicketModel.getDailyMaxCap());
 			currentTicket.setFare(dailyTicketModel.getDailyMaxCap()  - (dailyTicketModel.getDailyRollup() - currentTicket.getFare()));
 			dailyTicketModel.setDailyRollup(dailyTicketModel.getDailyMaxCap());
 			
@@ -116,57 +87,12 @@ public class FareCapBaseRuleProcessor implements Rules{
 		weeklyModel.addToWeeklyRollup(currentTicket.getFare());
 		
 		if( weeklyModel.getWeeklyRollup() >= weeklyModel.getWeeklyMaxCap()) {
-			//currentTicket.setFare(weeklyModel.getWeeklyRollup() - weeklyModel.getWeeklyMaxCap());
 			currentTicket.setFare(weeklyModel.getWeeklyMaxCap() - ( weeklyModel.getWeeklyRollup() - currentTicket.getFare()));
 			weeklyModel.setWeeklyRollup(weeklyModel.getWeeklyMaxCap());
 			
 		}
-		
-		
-	/*	currentTicket.setFare( Math.abs(dailyMaxCap  - (dailyTicketModel.getDailyCap() + currentTicket.getFare())));
-		
-
-		double totalMaxFare = dailyTicketModel.getDailyCap(); //totalDailyFareZ1 + totalDailyFareZ2 + totalDailyFareZ1Z2 + currentfare;
-		
-		
-
-		double totalZ1MaxFare = totalDailyFareZ1  ;
-
-		double totalZ2MaxFare = totalDailyFareZ2  ;
-
-		if(currentTicket.getStartZone() == currentTicket.getEndZOne() && currentTicket.getStartZone() == TicketConfig.ZONE.Z1 )
-			totalZ1MaxFare = totalZ1MaxFare + currentTicket.getFare();
-
-		if(currentTicket.getStartZone() == currentTicket.getEndZOne() && currentTicket.getStartZone() == TicketConfig.ZONE.Z2 )
-			totalZ2MaxFare = totalZ2MaxFare + currentTicket.getFare();
-
-		if(currentTicket.getStartZone() != currentTicket.getEndZOne()  ) {
-
-			totalZ1MaxFare = totalZ1MaxFare + currentTicket.getFare();
-			totalZ2MaxFare = totalZ2MaxFare + currentTicket.getFare();
-		}
-
-		if(totalMaxFare >=  RuleMetaData.getDailyCapforZ1Z2() ) {
-			currentTicket.setFare( Math.abs(RuleMetaData.getDailyCapforZ1Z2()  - (totalMaxFare - currentTicket.getFare())));
-			dailyTicketModel.setDailyMaxCap(RuleMetaData.getDailyCapforZ1Z2());
-			weeklyModel.addToWeeklyCap(dailyTicketModel.getDailyMaxCap());
-			weeklyModel.setWeeklyMaxCap(RuleMetaData.getWeeklyCapforZ1Z2());
-		}
-
-		else if(totalZ1MaxFare >=  RuleMetaData.getDailyCapforZ1() ) {
-			currentTicket.setFare( Math.abs(RuleMetaData.getDailyCapforZ1()  - (totalMaxFare - currentTicket.getFare())));
-			dailyTicketModel.setDailyMaxCap(RuleMetaData.getDailyCapforZ1());
-			weeklyModel.addToWeeklyCap(RuleMetaData.getWeeklyCapforZ1());
-		}
-
-		else if(totalZ2MaxFare >=  RuleMetaData.getDailyCapforZ2() ) {
-			currentTicket.setFare( Math.abs(RuleMetaData.getDailyCapforZ2()  - (totalMaxFare - currentTicket.getFare())));
-			dailyTicketModel.setDailyMaxCap(RuleMetaData.getDailyCapforZ2());
-			weeklyModel.addToWeeklyCap(RuleMetaData.getWeeklyCapforZ2());
-		} */
-
+	
 	}
-
 	
 	
 }
